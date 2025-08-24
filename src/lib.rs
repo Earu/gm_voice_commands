@@ -1,22 +1,3 @@
-// src/lib.rs
-// gmcl_speech: clientside Garry's Mod module
-// - Captures default (or chosen) Windows mic via cpal (WASAPI)
-// - Runs whisper-rs locally
-// - Matches monograms/bigrams against internal trigger map with cooldowns
-// - Queues matches and dispatches them on the Lua main thread via hook.Run
-// Lua API (single table `speech`):
-//   speech.AddTrigger(phrase[, cooldown], callback) -- register trigger with optional cooldown and a callback
-//   speech.RemoveTrigger(phrase)                    -- remove a trigger
-//   speech.GetTriggers() -> { {phrase=..., cooldown=...}, ... }
-// Auto Start/Stop via hooks: PlayerStartVoice/PlayerEndVoice (local player only)
-// Dispatch happens automatically every frame via a Think hook.
-//
-// Build: crate-type = ["cdylib"]
-// Requires dependencies: gmod, anyhow, cpal, whisper-rs, crossbeam-channel, parking_lot, once_cell
-
-//#![allow(clippy::needless_return)]
-//#![allow(unsafe_op_in_unsafe_fn)]
-
 use anyhow::Result;
 use crossbeam_channel::{unbounded, Receiver, Sender};
 use once_cell::sync::Lazy;
